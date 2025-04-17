@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { GenerateIdComponent } from './generate-id/generate-id.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  standalone: true,
+  imports: [CommonModule, FormsModule, GenerateIdComponent],
+  template: `<app-generate-id></app-generate-id>`,
 })
-export class AppComponent {
-  title = 'generate-id-front';
-}
+export class AppComponent {}

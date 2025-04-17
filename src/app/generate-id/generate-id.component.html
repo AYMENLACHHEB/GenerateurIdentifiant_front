@@ -1,0 +1,71 @@
+<div style="max-width: 1000px; margin: auto; padding: 20px;">
+    <h2 style="text-align: center;">Generation d'identifiant</h2>
+  
+    <!-- Conteneur flex pour les deux formulaires -->
+    <div style="display: flex; gap: 40px; justify-content: space-between; align-items: flex-start;">
+  
+      <!-- Formulaire principal -->
+      <form (ngSubmit)="generateId()" style="display: flex; flex-direction: column; gap: 10px; width: 45%;">
+        <h3>Informations personnelles</h3>
+        <input [(ngModel)]="nom" name="nom" placeholder="Nom" required style="padding: 4px; font-size: 13px;" />
+        <input [(ngModel)]="prenom" name="prenom" placeholder="Prenom" required style="padding: 4px; font-size: 13px;" />
+        <input [(ngModel)]="dateNaissance" name="dateNaissance" type="date" required style="padding: 4px; font-size: 13px;" />
+        <button type="submit" style="padding: 6px 10px; font-size: 13px; width: fit-content;">Generer l'identifiant</button>
+      </form>
+  
+      <!-- Formulaire d'ajout de configuration -->
+      <form (ngSubmit)="addConfigurationFromForm()" style="display: flex; flex-direction: column; gap: 10px; width: 50%;">
+        <h3>Ajouter une configuration</h3>
+        <input [(ngModel)]="newConfig.type" name="type" placeholder="Type" style="padding: 4px;" />
+        <input [(ngModel)]="newConfig.ordre" name="ordre" type="number" placeholder="Ordre" style="padding: 4px;" />
+        <input [(ngModel)]="newConfig.longueur" name="longueur" type="number" placeholder="Longueur" style="padding: 4px;" />
+        <input [(ngModel)]="newConfig.prefixe" name="prefixe" placeholder="Prefixe" style="padding: 4px;" />
+        <input [(ngModel)]="newConfig.suffixe" name="suffixe" placeholder="Suffixe" style="padding: 4px;" />
+        <input [(ngModel)]="newConfig.dateFormat" name="dateFormat" placeholder="Format de date" style="padding: 4px;" />
+        <input [(ngModel)]="newConfig.compteurInitial" name="compteurInitial" type="number" placeholder="Compteur initial" style="padding: 4px;" />
+        <button type="submit" style="padding: 6px 10px; font-size: 13px; width: fit-content;">Ajouter</button>
+      </form>
+  
+    </div>
+  
+    <!-- Identifiant genere -->
+    <div *ngIf="generatedId" style="margin: 20px 0; text-align: center;">
+      <strong>Identifiant genere :</strong> {{ generatedId }}
+    </div>
+  
+    <!-- Tableau de configurations -->
+    <div style="margin-top: 20px;">
+      <table border="1" cellpadding="6" cellspacing="0" style="width: 100%; font-size: 13px;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Ordre</th>
+            <th>Longueur</th>
+            <th>Préfixe</th>
+            <th>Suffixe</th>
+            <th>Format de date</th>
+            <th>Compteur initial</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let config of configurations; let i = index">
+            <td><input [(ngModel)]="config.id" name="id{{i}}" style="width: 100px; background-color: #f0f0f0;" /></td>
+            <td><input [(ngModel)]="config.type" name="type{{i}}" style="width: 100px; background-color: #f0f0f0;" /></td>
+            <td><input [(ngModel)]="config.ordre" name="ordre{{i}}" type="number" style="width: 60px; background-color: #f0f0f0;" /></td>
+            <td><input [(ngModel)]="config.longueur" name="longueur{{i}}" type="number" style="width: 60px; background-color: #f0f0f0;" /></td>
+            <td><input [(ngModel)]="config.prefixe" name="prefixe{{i}}" style="width: 80px; background-color: #f0f0f0;" /></td>
+            <td><input [(ngModel)]="config.suffixe" name="suffixe{{i}}" style="width: 80px; background-color: #f0f0f0;" /></td>
+            <td><input [(ngModel)]="config.dateFormat" name="dateFormat{{i}}" style="width: 100px; background-color: #f0f0f0;" /></td>
+            <td><input [(ngModel)]="config.compteurInitial" name="compteur{{i}}" type="number" style="width: 60px; background-color: #f0f0f0;" /></td>
+            <td>
+              <button type="button" (click)="updateConfiguration(config)" style="font-size: 12px;">Mettre à jour</button>
+              <button type="button" (click)="removeConfiguration(i)" style="font-size: 12px;">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
